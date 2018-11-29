@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Shadowsocks Config Generator</title>
+    <!-- Bootstrap core CSS -->
+    <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-light">
+    <div class="container">
+        <div class="py-5 text-center">
+            <h2>Shadowsocks Config Generator</h2>
+            <p class="lead">a simple tool for generating URL and QRcode of Shadowsocks and ShadowsocksR client configurations.</p>
+        </div>
+        <div class="d-block my-3">
+            <div class="custom-control custom-radio">
+                <input id="ss" name="ssType" type="radio" class="custom-control-input" checked required>
+                <label class="custom-control-label" for="ss">Shadowsocks</label>
+            </div>
+            <div class="custom-control custom-radio">
+                <input id="ssr" name="ssType" type="radio" class="custom-control-input" required>
+                <label class="custom-control-label" for="ssr">ShadowsocksR</label>
+            </div>
+        </div>
+        <hr class="mb-4">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-12">
+                        <button class="btn btn-primary btn-lg btn-block" id="testBtn" type="button">Test Data</button>
+                    </div>
+                </div>
+                <h4 class="mb-3">Parameters</h4>
+                <form class="needs-validation" novalidate>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="server">Server *</label>
+                            <input type="text" class="form-control" id="server" placeholder="127.0.0.1/example.com">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="serverPort">Server Port *</label>
+                            <input type="text" class="form-control" id="serverPort" placeholder="443">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="password">Password *</label>
+                            <input type="password" class="form-control" id="password" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="method">Method *</label>
+                            <select class="form-control" id="method">
+                                <option selected="selected" value="none">none</option>
+                                <option value="table">table</option>
+                                <option value="rc4">rc4</option>
+                                <option value="rc4-md5">rc4-md5</option>
+                                <option value="rc4-md5-6">rc4-md5-6</option>
+                                <option value="salsa20">salsa20</option>
+                                <option value="chacha20">chacha20</option>
+                                <option value="chacha20-ietf">chacha20-ietf</option>
+                                <option value="aes-256-cfb">aes-256-cfb</option>
+                                <option value="aes-192-cfb">aes-192-cfb</option>
+                                <option value="aes-128-cfb">aes-128-cfb</option>
+                                <option value="aes-256-cfb1">aes-256-cfb1</option>
+                                <option value="aes-192-cfb1">aes-192-cfb1</option>
+                                <option value="aes-128-cfb1">aes-128-cfb1</option>
+                                <option value="aes-256-cfb8">aes-256-cfb8</option>
+                                <option value="aes-192-cfb8">aes-192-cfb8</option>
+                                <option value="aes-128-cfb8">aes-128-cfb8</option>
+                                <option value="aes-256-ctr">aes-256-ctr</option>
+                                <option value="aes-192-ctr">aes-192-ctr</option>
+                                <option value="aes-128-ctr">aes-128-ctr</option>
+                                <option value="aes-256-gcm">aes-256-gcm</option>
+                                <option value="aes-192-gcm">aes-192-gcm</option>
+                                <option value="aes-128-gcm">aes-128-gcm</option>
+                                <option value="bf-cfb">bf-cfb</option>
+                                <option value="camellia-128-cfb">camellia-128-cfb</option>
+                                <option value="camellia-192-cfb">camellia-192-cfb</option>
+                                <option value="camellia-256-cfb">camellia-256-cfb</option>
+                                <option value="cast5-cfb">cast5-cfb</option>
+                                <option value="des-cfb">des-cfb</option>
+                                <option value="idea-cfb">idea-cfb</option>
+                                <option value="rc2-cfb">rc2-cfb</option>
+                                <option value="seed-cfb">seed-cfb</option>
+                                <option value="chacha20-ietf-poly1305">chacha20-ietf-poly1305</option>
+                                <option value="chacha20-poly1305">chacha20-poly1305</option>
+                                <option value="xchacha20-ietf-poly1305">xchacha20-ietf-poly1305</option>
+                                <option value="sodium-aes-256-gcm">sodium-aes-256-gcm</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="localPort">Local Port</label>
+                            <input type="text" class="form-control" id="localPort" placeholder="" value="1080">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="stimeout">Timeout</label>
+                            <input type="text" class="form-control" id="stimeout" placeholder="" value="600">
+                        </div>
+                    </div>
+                    <div class="row ssr-only">
+                        <div class="col-md-6 mb-3">
+                            <label for="protocol">Protocol *</label>
+                            <select class="form-control" id="protocol">
+                                <option selected="selected" value="origin">origin</option>
+                                <option value="verify_simple">verify_simple</option>
+                                <option value="verify_sha1">verify_sha1</option>
+                                <option value="auth_simple">auth_simple</option>
+                                <option value="auth_sha1">auth_sha1</option>
+                                <option value="auth_sha1_v2">auth_sha1_v2</option>
+                                <option value="auth_sha1_v4">auth_sha1_v4</option>
+                                <option value="auth_aes128_md5">auth_aes128_md5</option>
+                                <option value="auth_aes128_sha1">auth_aes128_sha1</option>
+                                <option value="auth_chain_a">auth_chain_a</option>
+                                <option value="auth_chain_b">auth_chain_b</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="protoparam">Protocol Params</label>
+                            <input type="text" class="form-control" id="protoparam">
+                        </div>
+                    </div>
+                    <div class="row ssr-only">
+                        <div class="col-md-6 mb-3">
+                            <label for="obfs">Obfs *</label>
+                            <select class="form-control" id="obfs">
+                                <option selected="selected" value="plain">plain</option>
+                                <option value="http_simple">http_simple</option>
+                                <option value="http_post">http_post</option>
+                                <option value="tls1.0_session_auth">tls1.0_session_auth</option>
+                                <option value="tls1.2_ticket_auth">tls1.2_ticket_auth</option>
+                                <option value="tls1.2_ticket_fastauth">tls1.2_ticket_fastauth</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="obfsparam">Obfs Params</label>
+                            <input type="text" class="form-control" id="obfsparam">
+                        </div>
+                    </div>
+                    <div class="row ssr-only">
+                        <div class="col-md-6 mb-3">
+                            <label for="group">Group</label>
+                            <input type="text" class="form-control" id="group" placeholder="default" value="">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="remarks">Remarks</label>
+                            <input type="text" class="form-control" id="remarks">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="size">QRcode Size</label>
+                            <input type="text" class="form-control" id="size" placeholder="400" value="">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button class="btn btn-primary btn-lg btn-block" id="generateBtn" type="button">Generate</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <hr class="mb-4">
+        <h4 class="mb-3">Results</h4>
+        <div class="row">
+            <div class="col-md-12">
+                <label for="url">URL</label>
+                <textarea type="text" class="form-control" rows="3" disabled id="url"></textarea>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <label>QRcode</label>
+                <div align="center" id="qrcode">
+                </div>
+            </div>
+        </div>
+        <footer class="my-5 pt-5 text-muted text-center text-small">
+            <p class="mb-1">&copy; 2018-2019 Zhiyuan Ling</p>
+        </footer>
+    </div>
+    <script src="lib/jquery-3.3.1.slim.min.js"></script>
+    <script src="lib/bootstrap/js/bootstrap.min.js"></script>
+    <script src="lib/base64.js"></script>
+    <script src="lib/qrcode.js"></script>
+    <script src="gen.js"></script>
+    <script type="text/javascript">
+    $(function() {
+        $("input[name='ssType']").change(function() {
+            let ssrChecked = $("#ssr:checked").val();
+            if (ssrChecked) {
+                $(".ssr-only").show();
+            } else {
+                $(".ssr-only").hide();
+            }
+        })
+
+        let ssrChecked = $("#ssr:checked").val();
+        if (ssrChecked) {
+            $(".ssr-only").show();
+        } else {
+            $(".ssr-only").hide();
+        }
+
+        // for testing purpose remove later
+        $("#testBtn").click(function() {
+            $("#server").val("127.0.0.1");
+            $("#serverPort").val(1234);
+            $("#password").val("test123");
+            $("#method").val("none");
+            $("#localPort").val(1080);
+            $("#stimeout").val(600);
+            $("#protocol").val("origin");
+            $("#protoparam").val(null);
+            $("#obfs").val("plain");
+            $("#obfsparam").val(null);
+            $("#group").val("default");
+            $("#remarks").val("test-ac");
+        });
+
+        let qrcode = null;
+
+        $("#generateBtn").on('click', function() {
+            // let config = new Config("127.0.0.1", 1090, "test", "none");
+
+            let server = $("#server").val();
+            let server_port = $("#serverPort").val();
+            let password = $("#password").val();
+            let method = $("#method").val();
+            let localPort = $("#localPort").val();
+            let stimeout = $("#stimeout").val();
+            let protocol = $("#protocol").val();
+            let protoparam = $("#protoparam").val();
+            let obfs = $("#obfs").val();
+            let obfsparam = $("#obfsparam").val();
+            let group = $("#group").val();
+            let remarks = $("#remarks").val();
+
+
+            let size = $("#size").val();
+
+            if (size == null || size == "" || isNaN(size)) {
+                // not a number
+                size = 400;
+            }
+            const config = new Config(server, server_port, password, method, obfs, protocol, group, remarks, obfsparam, protoparam, localPort, stimeout);
+            let result = "";
+            if ($("#ss:checked").val()) {
+                result = genSSConfig(config);;
+            }
+
+            if ($("#ssr:checked").val()) {
+                result = genSSRConfig(config);
+            }
+
+            $("#url").val(result);
+
+            $("#qrcode").html("");
+            qrcode = new QRCode("qrcode", {
+                text: result,
+                width: size,
+                height: size,
+                colorDark: "#000000",
+                colorLight: "#ffffff",
+                correctLevel: QRCode.CorrectLevel.H
+            });
+
+        });
+    });
+    </script>
+</body>
+
+</html>

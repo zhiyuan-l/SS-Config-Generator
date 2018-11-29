@@ -25,7 +25,7 @@ class Config {
 function genSSConfig(config) {
     const config_text = `${config.method}:${config.password}@${config.server}:${config.server_port}`;
     const ciphertext = base64(config_text);
-    const result = `${SS_PREFIX}${ciphertext}`;
+    const result = `${SS_PREFIX}${ciphertext}#${config.remarks}`;
     return result;
 }
 

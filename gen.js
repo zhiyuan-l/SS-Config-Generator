@@ -96,7 +96,3 @@ function removePadding(text) {
     }
     return text;
 }
-
-function genQRCode(config_text) {
-
-}

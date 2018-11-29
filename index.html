@@ -28,13 +28,15 @@
             </div>
         </div>
         <hr class="mb-4">
+        <!-- Test Button -->
+        <div class="row">
+            <div class="col-md-6">
+                <button class="btn btn-success btn-lg btn-block" id="testBtn" type="button">Test Data</button>
+            </div>
+        </div>
+        <hr class="mb-4">
         <div class="row">
             <div class="col-md-12">
-                <div class="row">
-                    <div class="col-md-12">
-                        <button class="btn btn-primary btn-lg btn-block" id="testBtn" type="button">Test Data</button>
-                    </div>
-                </div>
                 <h4 class="mb-3">Parameters</h4>
                 <form class="needs-validation" novalidate>
                     <div class="row">
@@ -55,42 +57,6 @@
                         <div class="col-md-6 mb-3">
                             <label for="method">Method *</label>
                             <select class="form-control" id="method">
-                                <option selected="selected" value="none">none</option>
-                                <option value="table">table</option>
-                                <option value="rc4">rc4</option>
-                                <option value="rc4-md5">rc4-md5</option>
-                                <option value="rc4-md5-6">rc4-md5-6</option>
-                                <option value="salsa20">salsa20</option>
-                                <option value="chacha20">chacha20</option>
-                                <option value="chacha20-ietf">chacha20-ietf</option>
-                                <option value="aes-256-cfb">aes-256-cfb</option>
-                                <option value="aes-192-cfb">aes-192-cfb</option>
-                                <option value="aes-128-cfb">aes-128-cfb</option>
-                                <option value="aes-256-cfb1">aes-256-cfb1</option>
-                                <option value="aes-192-cfb1">aes-192-cfb1</option>
-                                <option value="aes-128-cfb1">aes-128-cfb1</option>
-                                <option value="aes-256-cfb8">aes-256-cfb8</option>
-                                <option value="aes-192-cfb8">aes-192-cfb8</option>
-                                <option value="aes-128-cfb8">aes-128-cfb8</option>
-                                <option value="aes-256-ctr">aes-256-ctr</option>
-                                <option value="aes-192-ctr">aes-192-ctr</option>
-                                <option value="aes-128-ctr">aes-128-ctr</option>
-                                <option value="aes-256-gcm">aes-256-gcm</option>
-                                <option value="aes-192-gcm">aes-192-gcm</option>
-                                <option value="aes-128-gcm">aes-128-gcm</option>
-                                <option value="bf-cfb">bf-cfb</option>
-                                <option value="camellia-128-cfb">camellia-128-cfb</option>
-                                <option value="camellia-192-cfb">camellia-192-cfb</option>
-                                <option value="camellia-256-cfb">camellia-256-cfb</option>
-                                <option value="cast5-cfb">cast5-cfb</option>
-                                <option value="des-cfb">des-cfb</option>
-                                <option value="idea-cfb">idea-cfb</option>
-                                <option value="rc2-cfb">rc2-cfb</option>
-                                <option value="seed-cfb">seed-cfb</option>
-                                <option value="chacha20-ietf-poly1305">chacha20-ietf-poly1305</option>
-                                <option value="chacha20-poly1305">chacha20-poly1305</option>
-                                <option value="xchacha20-ietf-poly1305">xchacha20-ietf-poly1305</option>
-                                <option value="sodium-aes-256-gcm">sodium-aes-256-gcm</option>
                             </select>
                         </div>
                     </div>
@@ -108,17 +74,6 @@
                         <div class="col-md-6 mb-3">
                             <label for="protocol">Protocol *</label>
                             <select class="form-control" id="protocol">
-                                <option selected="selected" value="origin">origin</option>
-                                <option value="verify_simple">verify_simple</option>
-                                <option value="verify_sha1">verify_sha1</option>
-                                <option value="auth_simple">auth_simple</option>
-                                <option value="auth_sha1">auth_sha1</option>
-                                <option value="auth_sha1_v2">auth_sha1_v2</option>
-                                <option value="auth_sha1_v4">auth_sha1_v4</option>
-                                <option value="auth_aes128_md5">auth_aes128_md5</option>
-                                <option value="auth_aes128_sha1">auth_aes128_sha1</option>
-                                <option value="auth_chain_a">auth_chain_a</option>
-                                <option value="auth_chain_b">auth_chain_b</option>
                             </select>
                         </div>
                         <div class="col-md-6 mb-3">
@@ -130,12 +85,6 @@
                         <div class="col-md-6 mb-3">
                             <label for="obfs">Obfs *</label>
                             <select class="form-control" id="obfs">
-                                <option selected="selected" value="plain">plain</option>
-                                <option value="http_simple">http_simple</option>
-                                <option value="http_post">http_post</option>
-                                <option value="tls1.0_session_auth">tls1.0_session_auth</option>
-                                <option value="tls1.2_ticket_auth">tls1.2_ticket_auth</option>
-                                <option value="tls1.2_ticket_fastauth">tls1.2_ticket_fastauth</option>
                             </select>
                         </div>
                         <div class="col-md-6 mb-3">
@@ -160,8 +109,11 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-12">
+                        <div class="col-md-6">
                             <button class="btn btn-primary btn-lg btn-block" id="generateBtn" type="button">Generate</button>
+                        </div>
+                        <div class="col-md-6">
+                            <button class="btn btn-danger btn-lg btn-block" id="clearBtn" type="button">Clear</button>
                         </div>
                     </div>
                 </form>
@@ -190,31 +142,58 @@
     <script src="lib/bootstrap/js/bootstrap.min.js"></script>
     <script src="lib/base64.js"></script>
     <script src="lib/qrcode.js"></script>
+    <script src="ss.js"></script>
     <script src="gen.js"></script>
     <script type="text/javascript">
+    const DEFAULT_QR_SIZE = 400;
+
     $(function() {
+
+        // add method options
+        METHODS.forEach(function(element) {
+            $('#method')
+                .append($("<option></option>")
+                    .attr("value", element)
+                    .text(element));
+        });
+
+        // add protocol options
+        PROTOCOLS.forEach(function(element) {
+            $('#protocol')
+                .append($("<option></option>")
+                    .attr("value", element)
+                    .text(element));
+        });
+
+        // add obfs options
+        OBFSES.forEach(function(element) {
+            $('#obfs')
+                .append($("<option></option>")
+                    .attr("value", element)
+                    .text(element));
+        });
+
+        // set ss type button actions
         $("input[name='ssType']").change(function() {
             let ssrChecked = $("#ssr:checked").val();
             if (ssrChecked) {
+                ssrChecked = true;
                 $(".ssr-only").show();
             } else {
+                ssrChecked = false;
                 $(".ssr-only").hide();
             }
-        })
 
-        let ssrChecked = $("#ssr:checked").val();
-        if (ssrChecked) {
-            $(".ssr-only").show();
-        } else {
-            $(".ssr-only").hide();
-        }
+            // store statuses
+            localStorage.setItem("ssrChecked", ssrChecked);
+        })
 
         // for testing purpose remove later
         $("#testBtn").click(function() {
             $("#server").val("127.0.0.1");
             $("#serverPort").val(1234);
             $("#password").val("test123");
-            $("#method").val("none");
+            $("#method").val("aes-256-cfb");
             $("#localPort").val(1080);
             $("#stimeout").val(600);
             $("#protocol").val("origin");
@@ -225,11 +204,28 @@
             $("#remarks").val("test-ac");
         });
 
+        // restore all the fields to default
+        $("#clearBtn").click(function() {
+            $("#server").val("");
+            $("#serverPort").val("");
+            $("#password").val("");
+            $("#method").val(METHODS[0]);
+            $("#localPort").val(1080);
+            $("#stimeout").val(600);
+            $("#protocol").val(PROTOCOLS[0]);
+            $("#protoparam").val("");
+            $("#obfs").val(OBFSES[0]);
+            $("#obfsparam").val("");
+            $("#group").val("");
+            $("#remarks").val("");
+            $("#url").val("");
+            $("#qrcode").html("");
+        })
+
         let qrcode = null;
 
         $("#generateBtn").on('click', function() {
-            // let config = new Config("127.0.0.1", 1090, "test", "none");
-
+            // retrieve values
             let server = $("#server").val();
             let server_port = $("#serverPort").val();
             let password = $("#password").val();
@@ -242,14 +238,15 @@
             let obfsparam = $("#obfsparam").val();
             let group = $("#group").val();
             let remarks = $("#remarks").val();
-
-
             let size = $("#size").val();
 
+            // validate size, default size as the fallback value
             if (size == null || size == "" || isNaN(size)) {
                 // not a number
-                size = 400;
+                size = DEFAULT_QR_SIZE;
             }
+
+            // construct new config
             const config = new Config(server, server_port, password, method, obfs, protocol, group, remarks, obfsparam, protoparam, localPort, stimeout);
             let result = "";
             if ($("#ss:checked").val()) {
@@ -260,9 +257,13 @@
                 result = genSSRConfig(config);
             }
 
+            // display encoded URL
             $("#url").val(result);
 
+            // clear previous code
             $("#qrcode").html("");
+
+            // build qrcode and display as an image
             qrcode = new QRCode("qrcode", {
                 text: result,
                 width: size,
@@ -272,7 +273,50 @@
                 correctLevel: QRCode.CorrectLevel.H
             });
 
+            localStorage.setItem("config", JSON.stringify(config));
+            localStorage.setItem("size", JSON.stringify(size));
+
         });
+
+        // restore previous settings status
+
+        // restore ss type status
+        // check localStorage first, if no item is found, check current status
+        let ssrChecked = JSON.parse(localStorage.getItem("ssrChecked"));
+        if (ssrChecked == null) {
+            ssrChecked = $("#ssr:checked").val();
+        } else {
+            $("#ssr").prop('checked', ssrChecked);
+        }
+
+        if (ssrChecked) {
+            $(".ssr-only").show();
+        } else {
+            $(".ssr-only").hide();
+        }
+
+        // restore qrcode size
+        const size = JSON.parse(localStorage.getItem("size"));
+        if (size != null) {
+            $("#size").val(size);
+        }
+
+        // restore config
+        const config = JSON.parse(localStorage.getItem("config"));
+        if (config != null) {
+            $("#server").val(config.server);
+            $("#serverPort").val(config.server_port);
+            $("#password").val(config.password);
+            $("#method").val(config.method);
+            $("#localPort").val(config.local_port);
+            $("#stimeout").val(config.stimeout);
+            $("#protocol").val(config.protocol);
+            $("#protoparam").val(config.protoparam);
+            $("#obfs").val(config.obfs);
+            $("#obfsparam").val(config.obfsparam);
+            $("#group").val(config.group);
+            $("#remarks").val(config.remarks);
+        }
     });
     </script>
 </body>

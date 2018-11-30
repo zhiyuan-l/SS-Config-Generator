@@ -95,7 +95,7 @@
                     <div class="row">
                         <div class="col-md-6 mb-3 ssr-only">
                             <label for="group">Group</label>
-                            <input type="text" class="form-control" id="group" placeholder="default" value="">
+                            <input type="text" class="form-control" id="group" value="default">
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="remarks">Remarks(Tag)</label>
@@ -106,6 +106,10 @@
                         <div class="col-md-6 mb-3">
                             <label for="size">QRcode Size</label>
                             <input type="text" class="form-control" id="size" placeholder="400" value="">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="size">QRcode Border</label>
+                            <input type="text" class="form-control" id="border" placeholder="4" value="">
                         </div>
                     </div>
                     <div class="row">
@@ -146,6 +150,7 @@
     <script src="gen.js"></script>
     <script type="text/javascript">
     const DEFAULT_QR_SIZE = 400;
+    const DEFAULT_QR_BORDER = 4;
 
     $(function() {
 
@@ -186,7 +191,7 @@
 
             // store statuses
             localStorage.setItem("ssrChecked", ssrChecked);
-        })
+        });
 
         // for testing purpose remove later
         $("#testBtn").click(function() {
@@ -220,7 +225,7 @@
             $("#remarks").val("");
             $("#url").val("");
             $("#qrcode").html("");
-        })
+        });
 
         let qrcode = null;
 
@@ -239,11 +244,17 @@
             let group = $("#group").val();
             let remarks = $("#remarks").val();
             let size = $("#size").val();
+            let border = $("#border").val();
 
-            // validate size, default size as the fallback value
-            if (size == null || size == "" || isNaN(size)) {
+            // validate size & border, default size as the fallback value
+            if (isNullOrEmpty(size) || isNaN(size)) {
                 // not a number
                 size = DEFAULT_QR_SIZE;
+            }
+
+            if (isNullOrEmpty(border) || isNaN(size)) {
+                // not a number
+                border = DEFAULT_QR_BORDER;
             }
 
             // construct new config
@@ -268,6 +279,7 @@
                 text: result,
                 width: size,
                 height: size,
+                border: border,
                 colorDark: "#000000",
                 colorLight: "#ffffff",
                 correctLevel: QRCode.CorrectLevel.H
@@ -275,7 +287,7 @@
 
             localStorage.setItem("config", JSON.stringify(config));
             localStorage.setItem("size", JSON.stringify(size));
-
+            localStorage.setItem("border", JSON.stringify(border));
         });
 
         // restore previous settings status
@@ -295,10 +307,15 @@
             $(".ssr-only").hide();
         }
 
-        // restore qrcode size
+        // restore qrcode size & border
         const size = JSON.parse(localStorage.getItem("size"));
+        const border = JSON.parse(localStorage.getItem("border"));
         if (size != null) {
             $("#size").val(size);
+        }
+
+        if (border != null) {
+            $("#border").val(border);
         }
 
         // restore config

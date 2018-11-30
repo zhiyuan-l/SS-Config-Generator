@@ -1,250 +1,262 @@
 <!doctype html>
-<html lang="en">
+<html lang='en'>
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <meta charset='utf-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no'>
+    <meta name='description' content=''>
+    <meta name='author' content=''>
     <title>Shadowsocks Config Generator</title>
     <!-- Bootstrap core CSS -->
-    <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href='./lib/bootstrap/css/bootstrap.min.css' rel='stylesheet'>
 </head>
 
-<body class="bg-light">
-    <div class="container">
-        <div class="py-5 text-center">
-            <h2>Shadowsocks Config Generator</h2>
-            <p class="lead">a simple tool for generating URL and QRcode of Shadowsocks and ShadowsocksR client configurations.</p>
-        </div>
-        <div class="d-block my-3">
-            <div class="custom-control custom-radio">
-                <input id="ss" name="ssType" type="radio" class="custom-control-input" checked required>
-                <label class="custom-control-label" for="ss">Shadowsocks</label>
-            </div>
-            <div class="custom-control custom-radio">
-                <input id="ssr" name="ssType" type="radio" class="custom-control-input" required>
-                <label class="custom-control-label" for="ssr">ShadowsocksR</label>
-            </div>
-        </div>
-        <hr class="mb-4">
-        <!-- Test Button -->
-        <div class="row">
-            <div class="col-md-6">
-                <button class="btn btn-success btn-lg btn-block" id="testBtn" type="button">Test Data</button>
-            </div>
-        </div>
-        <hr class="mb-4">
-        <div class="row">
-            <div class="col-md-12">
-                <h4 class="mb-3">Parameters</h4>
-                <form class="needs-validation" novalidate>
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <label for="server">Server *</label>
-                            <input type="text" class="form-control" id="server" placeholder="127.0.0.1/example.com">
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label for="serverPort">Server Port *</label>
-                            <input type="text" class="form-control" id="serverPort" placeholder="443">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <label for="password">Password *</label>
-                            <input type="password" class="form-control" id="password" required>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label for="method">Method *</label>
-                            <select class="form-control" id="method">
-                            </select>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <label for="localPort">Local Port</label>
-                            <input type="text" class="form-control" id="localPort" placeholder="" value="1080">
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label for="stimeout">Timeout</label>
-                            <input type="text" class="form-control" id="stimeout" placeholder="" value="600">
-                        </div>
-                    </div>
-                    <div class="row ssr-only">
-                        <div class="col-md-6 mb-3">
-                            <label for="protocol">Protocol *</label>
-                            <select class="form-control" id="protocol">
-                            </select>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label for="protoparam">Protocol Params</label>
-                            <input type="text" class="form-control" id="protoparam">
-                        </div>
-                    </div>
-                    <div class="row ssr-only">
-                        <div class="col-md-6 mb-3">
-                            <label for="obfs">Obfs *</label>
-                            <select class="form-control" id="obfs">
-                            </select>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label for="obfsparam">Obfs Params</label>
-                            <input type="text" class="form-control" id="obfsparam">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6 mb-3 ssr-only">
-                            <label for="group">Group</label>
-                            <input type="text" class="form-control" id="group" value="default">
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label for="remarks">Remarks(Tag)</label>
-                            <input type="text" class="form-control" id="remarks">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <label for="size">QRcode Size</label>
-                            <input type="text" class="form-control" id="size" placeholder="400" value="">
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label for="size">QRcode Border</label>
-                            <input type="text" class="form-control" id="border" placeholder="4" value="">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <button class="btn btn-primary btn-lg btn-block" id="generateBtn" type="button">Generate</button>
-                        </div>
-                        <div class="col-md-6">
-                            <button class="btn btn-danger btn-lg btn-block" id="clearBtn" type="button">Clear</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-        <hr class="mb-4">
-        <h4 class="mb-3">Results</h4>
-        <div class="row">
-            <div class="col-md-12">
-                <label for="url">URL</label>
-                <textarea type="text" class="form-control" rows="3" disabled id="url"></textarea>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <label>QRcode</label>
-                <div align="center" id="qrcode">
-                </div>
-            </div>
-        </div>
-        <footer class="my-5 pt-5 text-muted text-center text-small">
-            <p class="mb-1">&copy; 2018-2019 Zhiyuan Ling</p>
-        </footer>
+<body class='bg-light'>
+<div class='container'>
+    <div class='py-5 text-center'>
+        <h2>Shadowsocks Config Generator</h2>
+        <p class='lead'>
+            A simple tool for generating URL and QRcode of Shadowsocks and ShadowsocksR client configurations.
+            <br>
+            This tool is available at <a href="https://zhiyuan-l.github.io/SS-Config-Generator" target="_blank">Github Pages</a>
+        </p>
     </div>
-    <script src="lib/jquery-3.3.1.slim.min.js"></script>
-    <script src="lib/bootstrap/js/bootstrap.min.js"></script>
-    <script src="lib/base64.min.js"></script>
-    <script src="lib/qrcode.min.js"></script>
-    <script src="ss.js"></script>
-    <script src="gen.js"></script>
-    <script type="text/javascript">
+    <div class='d-block my-3'>
+        <div class='custom-control custom-radio'>
+            <input id='ss' name='ssType' type='radio' class='custom-control-input' checked required>
+            <label class='custom-control-label' for='ss'>
+                <a href="https://shadowsocks.org/en/config/quick-guide.html" target="_blank">Shadowsocks Scheme</a>
+            </label>
+        </div>
+        <div class='custom-control custom-radio'>
+            <input id='ssr' name='ssType' type='radio' class='custom-control-input' required>
+            <label class='custom-control-label' for='ssr'>
+                <a href="https://github.com/shadowsocksr-backup/shadowsocks-rss/wiki/SSR-QRcode-scheme" target="_blank">
+                    ShadowsocksR Scheme
+                </a>
+            </label>
+        </div>
+    </div>
+    <hr class='mb-4'>
+    <!-- Test Button -->
+    <div class='row'>
+        <div class='col-md-6'>
+            <button class='btn btn-success btn-lg btn-block' id='testBtn' type='button'>Test Data</button>
+        </div>
+    </div>
+    <hr class='mb-4'>
+    <div class='row'>
+        <div class='col-md-12'>
+            <h4 class='mb-3'>Parameters</h4>
+            &nbsp;&nbsp;&nbsp;<label>* fields are required</label>
+            <form class='needs-validation' novalidate>
+                <div class='row'>
+                    <div class='col-md-6 mb-3'>
+                        <label for='server'>Server *</label>
+                        <input type='text' class='form-control' id='server' placeholder='127.0.0.1/example.com'>
+                    </div>
+                    <div class='col-md-6 mb-3'>
+                        <label for='serverPort'>Server Port *</label>
+                        <input type='text' class='form-control' id='serverPort' placeholder='443'>
+                    </div>
+                </div>
+                <div class='row'>
+                    <div class='col-md-6 mb-3'>
+                        <label for='password'>Password *</label>
+                        <input type='password' class='form-control' id='password'>
+                    </div>
+                    <div class='col-md-6 mb-3'>
+                        <label for='method'>Method *</label>
+                        <select class='form-control' id='method'>
+                        </select>
+                    </div>
+                </div>
+                <div class='row'>
+                    <div class='col-md-6 mb-3'>
+                        <label for='localPort'>Local Port *</label>
+                        <input type='text' class='form-control' id='localPort' value='1080'>
+                    </div>
+                    <div class='col-md-6 mb-3'>
+                        <label for='stimeout'>Timeout *</label>
+                        <input type='text' class='form-control' id='stimeout' value='600'>
+                    </div>
+                </div>
+                <div class='row ssr-only'>
+                    <div class='col-md-6 mb-3'>
+                        <label for='protocol'>Protocol *</label>
+                        <select class='form-control' id='protocol'>
+                        </select>
+                    </div>
+                    <div class='col-md-6 mb-3'>
+                        <label for='protoparam'>Protocol Parameter</label>
+                        <input type='text' class='form-control' id='protoparam'>
+                    </div>
+                </div>
+                <div class='row ssr-only'>
+                    <div class='col-md-6 mb-3'>
+                        <label for='obfs'>Obfs *</label>
+                        <select class='form-control' id='obfs'>
+                        </select>
+                    </div>
+                    <div class='col-md-6 mb-3'>
+                        <label for='obfsparam'>Obfs Parameter</label>
+                        <input type='text' class='form-control' id='obfsparam'>
+                    </div>
+                </div>
+                <div class='row'>
+                    <div class='col-md-6 mb-3 ssr-only'>
+                        <label for='group'>Group</label>
+                        <input type='text' class='form-control' id='group' value='default'>
+                    </div>
+                    <div class='col-md-6 mb-3'>
+                        <label for='remarks'>Remarks(Tag)</label>
+                        <input type='text' class='form-control' id='remarks'>
+                    </div>
+                </div>
+                <div class='row'>
+                    <div class='col-md-6 mb-3'>
+                        <label for='size'>QRcode Size</label>
+                        <input type='text' class='form-control' id='size' placeholder='400' value=''>
+                    </div>
+                    <div class='col-md-6 mb-3'>
+                        <label for='size'>QRcode Border</label>
+                        <input type='text' class='form-control' id='border' placeholder='4' value=''>
+                    </div>
+                </div>
+                <div class='row'>
+                    <div class='col-md-6'>
+                        <button class='btn btn-primary btn-lg btn-block' id='generateBtn' type='button'>Generate
+                        </button>
+                    </div>
+                    <div class='col-md-6'>
+                        <button class='btn btn-danger btn-lg btn-block' id='clearBtn' type='button'>Clear</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <hr class='mb-4'>
+    <h4 class='mb-3'>Results</h4>
+    <div class='row'>
+        <div class='col-md-12'>
+            <label for='url'>URL</label>
+            <textarea type='text' class='form-control' rows='3' disabled id='url'></textarea>
+        </div>
+    </div>
+    <div class='row'>
+        <div class='col-md-12'>
+            <label>QRcode</label>
+            <div align='center' id='qrcode'>
+            </div>
+        </div>
+    </div>
+    <footer class='my-5 pt-5 text-muted text-center text-small'>
+        <p class='mb-1'>&copy; 2018-2019 Zhiyuan Ling</p>
+        <ul class='list-inline'>
+            <li class='list-inline-item'><a href='https://github.com/zhiyuan-l/SS-Config-Generator'>Github</a></li>
+            <li class='list-inline-item'><a href='http://zhiyuan.me'>Author</a></li>
+        </ul>
+    </footer>
+</div>
+<script src='./lib/jquery-3.3.1.slim.min.js'></script>
+<script src='./lib/bootstrap/js/bootstrap.min.js'></script>
+<script src='./lib/base64.min.js'></script>
+<script src='./lib/qrcode.min.js'></script>
+<script src='./ss.js'></script>
+<script src='./gen.js'></script>
+<script type='text/javascript'>
     const DEFAULT_QR_SIZE = 400;
     const DEFAULT_QR_BORDER = 4;
+    const DEFAULT_GROUP = 'default';
+    const DEFAULT_LOCAL_PORT = 1080;
+    const DEFAULT_TIMEOUT = 600;
+    const DEFAULT_METHOD = METHODS[0];
+    const DEFAULT_PROTOCOL = PROTOCOLS[0];
+    const DEFAULT_OBFS = OBFSES[0];
 
-    $(function() {
+    // nodes
+    const ssrOnly = $('.ssr-only');
 
+    // add options to select
+    // both the values and the texts will the options
+    function addOptions(node, options) {
+        options.forEach(option =>
+            node
+                .append($('<option></option>')
+                    .attr('value', option)
+                    .text(option)));
+    }
+
+    $(function () {
         // add method options
-        METHODS.forEach(function(element) {
-            $('#method')
-                .append($("<option></option>")
-                    .attr("value", element)
-                    .text(element));
-        });
-
-        // add protocol options
-        PROTOCOLS.forEach(function(element) {
-            $('#protocol')
-                .append($("<option></option>")
-                    .attr("value", element)
-                    .text(element));
-        });
-
-        // add obfs options
-        OBFSES.forEach(function(element) {
-            $('#obfs')
-                .append($("<option></option>")
-                    .attr("value", element)
-                    .text(element));
-        });
+        addOptions($('#method'), METHODS);
+        addOptions($('#protocol'), PROTOCOLS);
+        addOptions($('#obfs'), OBFSES);
 
         // set ss type button actions
-        $("input[name='ssType']").change(function() {
-            let ssrChecked = $("#ssr:checked").val();
-            if (ssrChecked) {
-                ssrChecked = true;
-                $(".ssr-only").show();
-            } else {
-                ssrChecked = false;
-                $(".ssr-only").hide();
-            }
+        $('input[name=\'ssType\']').change(function () {
+            let ssrChecked = $('#ssr:checked').val();
+            ssrChecked = ssrChecked === 'on';
+            ssrChecked?ssrOnly.show():ssrOnly.hide();
 
-            // store statuses
-            localStorage.setItem("ssrChecked", ssrChecked);
+            // preserve status
+            LSHelper.set('ssrChecked', ssrChecked)
         });
 
         // for testing purpose remove later
-        $("#testBtn").click(function() {
-            $("#server").val("127.0.0.1");
-            $("#serverPort").val(1234);
-            $("#password").val("test123");
-            $("#method").val("aes-256-cfb");
-            $("#localPort").val(1080);
-            $("#stimeout").val(600);
-            $("#protocol").val("origin");
-            $("#protoparam").val(null);
-            $("#obfs").val("plain");
-            $("#obfsparam").val(null);
-            $("#group").val("default");
-            $("#remarks").val("test-ac");
+        $('#testBtn').click(function () {
+            $('#server').val('127.0.0.1');
+            $('#serverPort').val(1234);
+            $('#password').val('test123');
+            $('#method').val('aes-256-cfb');
+            $('#localPort').val(DEFAULT_LOCAL_PORT);
+            $('#stimeout').val(DEFAULT_TIMEOUT);
+            $('#protocol').val('origin');
+            $('#protoparam').val(null);
+            $('#obfs').val('plain');
+            $('#obfsparam').val(null);
+            $('#group').val('default');
+            $('#remarks').val('test-ac');
         });
 
-        // restore all the fields to default
-        $("#clearBtn").click(function() {
-            $("#server").val("");
-            $("#serverPort").val("");
-            $("#password").val("");
-            $("#method").val(METHODS[0]);
-            $("#localPort").val(1080);
-            $("#stimeout").val(600);
-            $("#protocol").val(PROTOCOLS[0]);
-            $("#protoparam").val("");
-            $("#obfs").val(OBFSES[0]);
-            $("#obfsparam").val("");
-            $("#group").val("");
-            $("#remarks").val("");
-            $("#url").val("");
-            $("#qrcode").html("");
+        // restore all fields to default
+        $('#clearBtn').click(function () {
+            $('#server').val('');
+            $('#serverPort').val('');
+            $('#password').val('');
+            $('#method').val(DEFAULT_METHOD);
+            $('#localPort').val(DEFAULT_LOCAL_PORT);
+            $('#stimeout').val(DEFAULT_TIMEOUT);
+            $('#protocol').val(DEFAULT_PROTOCOL);
+            $('#protoparam').val('');
+            $('#obfs').val(DEFAULT_OBFS);
+            $('#obfsparam').val('');
+            $('#group').val(DEFAULT_GROUP);
+            $('#remarks').val('');
+            $('#url').val('');
+            $('#size').val(DEFAULT_QR_SIZE);
+            $('#border').val(DEFAULT_QR_BORDER);
+            $('#qrcode').html('');
         });
 
         let qrcode = null;
 
-        $("#generateBtn").on('click', function() {
+        $('#generateBtn').on('click', function () {
             // retrieve values
-            let server = $("#server").val();
-            let server_port = $("#serverPort").val();
-            let password = $("#password").val();
-            let method = $("#method").val();
-            let localPort = $("#localPort").val();
-            let stimeout = $("#stimeout").val();
-            let protocol = $("#protocol").val();
-            let protoparam = $("#protoparam").val();
-            let obfs = $("#obfs").val();
-            let obfsparam = $("#obfsparam").val();
-            let group = $("#group").val();
-            let remarks = $("#remarks").val();
-            let size = $("#size").val();
-            let border = $("#border").val();
+            let server = $('#server').val();
+            let serverPort = $('#serverPort').val();
+            let password = $('#password').val();
+            let method = $('#method').val();
+            let localPort = $('#localPort').val();
+            let stimeout = $('#stimeout').val();
+            let protocol = $('#protocol').val();
+            let protoparam = $('#protoparam').val();
+            let obfs = $('#obfs').val();
+            let obfsparam = $('#obfsparam').val();
+            let group = $('#group').val();
+            let remarks = $('#remarks').val();
+            let size = $('#size').val();
+            let border = $('#border').val();
 
             // validate size & border, default size as the fallback value
             if (isNullOrEmpty(size) || isNaN(size)) {
@@ -258,84 +270,81 @@
             }
 
             // construct new config
-            const config = new Config(server, server_port, password, method, obfs, protocol, group, remarks, obfsparam, protoparam, localPort, stimeout);
-            let result = "";
-            if ($("#ss:checked").val()) {
-                result = genSSConfig(config);;
+            const config = new Config(server, serverPort, password, method, obfs, protocol, group, remarks, obfsparam, protoparam, localPort, stimeout);
+            let result = '';
+            if ($('#ss:checked').val()) {
+                result = genSSConfig(config);
             }
 
-            if ($("#ssr:checked").val()) {
+            if ($('#ssr:checked').val()) {
                 result = genSSRConfig(config);
             }
 
             // display encoded URL
-            $("#url").val(result);
+            $('#url').val(result);
 
             // clear previous code
-            $("#qrcode").html("");
+            $('#qrcode').html('');
 
             // build qrcode and display as an image
-            qrcode = new QRCode("qrcode", {
+            qrcode = new QRCode('qrcode', {
                 text: result,
                 width: size,
                 height: size,
                 border: border,
-                colorDark: "#000000",
-                colorLight: "#ffffff",
+                colorDark: '#000000',
+                colorLight: '#ffffff',
                 correctLevel: QRCode.CorrectLevel.H
             });
 
-            localStorage.setItem("config", JSON.stringify(config));
-            localStorage.setItem("size", JSON.stringify(size));
-            localStorage.setItem("border", JSON.stringify(border));
+            LSHelper.set('config', config);
+            LSHelper.set('size', size);
+            LSHelper.set('border', border);
         });
 
-        // restore previous settings status
+        // restore previous settings and status
 
         // restore ss type status
         // check localStorage first, if no item is found, check current status
-        let ssrChecked = JSON.parse(localStorage.getItem("ssrChecked"));
+        let ssrChecked = LSHelper.get('ssrChecked');
         if (ssrChecked == null) {
-            ssrChecked = $("#ssr:checked").val();
+            ssrChecked = $('#ssr:checked').val();
         } else {
-            $("#ssr").prop('checked', ssrChecked);
+            $('#ssr').prop('checked', ssrChecked);
         }
 
-        if (ssrChecked) {
-            $(".ssr-only").show();
-        } else {
-            $(".ssr-only").hide();
-        }
+        // render
+        ssrChecked?ssrOnly.show():ssrOnly.hide();
 
         // restore qrcode size & border
-        const size = JSON.parse(localStorage.getItem("size"));
-        const border = JSON.parse(localStorage.getItem("border"));
+        const size = LSHelper.get('size');
+        const border = LSHelper.get('border');
         if (size != null) {
-            $("#size").val(size);
+            $('#size').val(size);
         }
 
         if (border != null) {
-            $("#border").val(border);
+            $('#border').val(border);
         }
 
         // restore config
-        const config = JSON.parse(localStorage.getItem("config"));
+        const config = LSHelper.get('config');
         if (config != null) {
-            $("#server").val(config.server);
-            $("#serverPort").val(config.server_port);
-            $("#password").val(config.password);
-            $("#method").val(config.method);
-            $("#localPort").val(config.local_port);
-            $("#stimeout").val(config.stimeout);
-            $("#protocol").val(config.protocol);
-            $("#protoparam").val(config.protoparam);
-            $("#obfs").val(config.obfs);
-            $("#obfsparam").val(config.obfsparam);
-            $("#group").val(config.group);
-            $("#remarks").val(config.remarks);
+            $('#server').val(config.server);
+            $('#serverPort').val(config.serverPort);
+            $('#password').val(config.password);
+            $('#method').val(config.method);
+            $('#localPort').val(config.localPort);
+            $('#stimeout').val(config.stimeout);
+            $('#protocol').val(config.protocol);
+            $('#protoparam').val(config.protoparam);
+            $('#obfs').val(config.obfs);
+            $('#obfsparam').val(config.obfsparam);
+            $('#group').val(config.group);
+            $('#remarks').val(config.remarks);
         }
     });
-    </script>
+</script>
 </body>
 
 </html>

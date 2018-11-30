@@ -1,4 +1,5 @@
-const METHODS = ["none",
+const METHODS = [
+    "none",
     "table",
     "rc4",
     "rc4-md5",
@@ -36,7 +37,8 @@ const METHODS = ["none",
     "sodium-aes-256-gcm"
 ];
 
-const PROTOCOLS = ["origin",
+const PROTOCOLS = [
+    "origin",
     "verify_simple",
     "verify_sha1",
     "auth_simple",
@@ -49,7 +51,8 @@ const PROTOCOLS = ["origin",
     "auth_chain_b"
 ];
 
-const OBFSES = ["plain",
+const OBFSES = [
+    "plain",
     "http_simple",
     "http_post",
     "tls1.0_session_auth",

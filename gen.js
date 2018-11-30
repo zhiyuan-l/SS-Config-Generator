@@ -1,15 +1,15 @@
-const SS_PREFIX = "ss://";
-const SSR_PREFIX = "ssr://";
+const SS_PREFIX = 'ss://';
+const SSR_PREFIX = 'ssr://';
 
 // scheme references
 // ss: https://shadowsocks.org/en/config/quick-guide.html
 // ssr: https://github.com/shadowsocksr-backup/shadowsocks-rss/wiki/SSR-QRcode-scheme
 
 class Config {
-    constructor(server, server_port, password, method, obfs = "plain", protocol = "origin", group = "default", remarks = null, obfsparam = null, protoparam = null, local_port = 1080, stimeout = 600) {
+    constructor(server, serverPort, password, method, obfs = 'plain', protocol = 'origin', group = 'default', remarks = null, obfsparam = null, protoparam = null, localPort = 1080, stimeout = 600) {
         this.server = server;
-        this.server_port = server_port;
-        this.local_port = local_port;
+        this.serverPort = serverPort;
+        this.localPort = localPort;
         this.password = password;
         this.stimeout = stimeout;
         this.method = method;
@@ -23,64 +23,61 @@ class Config {
 }
 
 function genSSConfig(config) {
-    const config_text = `${config.method}:${config.password}@${config.server}:${config.server_port}`;
-    const ciphertext = base64(config_text);
-    const result = `${SS_PREFIX}${ciphertext}#${config.remarks}`;
-    return result;
+    const configText = `${config.method}:${config.password}@${config.server}:${config.serverPort}`;
+    const cipher = base64(configText);
+    return `${SS_PREFIX}${cipher}#${config.remarks}`;
 }
 
 function isNullOrEmpty(text) {
-	return text == "" || text == null;
+	return text === '' || text == null;
 }
 
 function genSSRConfig(config) {
-
-    if (password == null) {
+    if (config.password == null) {
         // invalid config
         return null;
     }
 
     const base64pass = base64(config.password);
 
-    let config_text = `${config.server}:${config.server_port}:${config.protocol}:${config.method}:${config.obfs}:${base64pass}/?`;
+    let configText = `${config.server}:${config.serverPort}:${config.protocol}:${config.method}:${config.obfs}:${base64pass}/?`;
     let flag = false;
 
     // check obfs param
     if (!isNullOrEmpty(config.obfsparam)) {
-        config_text += `obfsparam=${base64(config.obfsparam)}`;
+        configText += `obfsparam=${base64(config.obfsparam)}`;
         flag = true;
     }
 
     // check protocol param
     if (!isNullOrEmpty(config.protoparam)) {
         if (flag) {
-            config_text += "&";
+            configText += '&';
         }
-        config_text += `protoparam=${base64(config.protoparam)}`;
+        configText += `protoparam=${base64(config.protoparam)}`;
         flag = true;
     }
 
     // check group
     if (!isNullOrEmpty(config.group)) {
         if (flag) {
-            config_text += "&";
+            configText += '&';
         }
-        config_text += `group=${base64(config.group)}`;
+        configText += `group=${base64(config.group)}`;
         flag = true;
     }
 
     // check remarks
     if (!isNullOrEmpty(config.remarks)) {
         if (flag) {
-            config_text += "&";
+            configText += '&';
         }
-        config_text += `remarks=${base64(config.remarks)}`;
-        flag = true;
+        configText += `remarks=${base64(config.remarks)}`;
+        // flag = true;
     }
 
-    const ciphertext = base64(config_text);
-    const result = `${SSR_PREFIX}${ciphertext}`;
-    return result;
+    const cipher = base64(configText);
+    return `${SSR_PREFIX}${cipher}`;
 }
 
 function base64(text) {
@@ -88,11 +85,35 @@ function base64(text) {
 }
 
 function removePadding(text) {
-    if (text.endsWith("==")) {
+    if (text.endsWith('==')) {
         return text.slice(0, -2);
     }
-    if (text.endsWith("=")) {
+    if (text.endsWith('=')) {
         return text.slice(0, -1);
     }
     return text;
+}
+
+/**
+ * localStorage helper class
+ * */
+class LSHelper {
+
+    static set(key, value){
+        if (isNullOrEmpty(key)){
+            return;
+        }
+
+        localStorage.setItem(key, JSON.stringify(value));
+    }
+
+    static get(key){
+        let value = localStorage.getItem(key);
+        if (value) {
+            value = JSON.parse(value);
+        }
+
+        return value;
+    }
+
 }

@@ -23,13 +23,13 @@
     </div>
     <div class='d-block my-3'>
         <div class='custom-control custom-radio'>
-            <input id='ss' name='ssType' type='radio' class='custom-control-input' checked required>
+            <input id='ss' name='ssType' type='radio' class='custom-control-input' checked>
             <label class='custom-control-label' for='ss'>
                 <a href="https://shadowsocks.org/en/config/quick-guide.html" target="_blank">Shadowsocks Scheme</a>
             </label>
         </div>
         <div class='custom-control custom-radio'>
-            <input id='ssr' name='ssType' type='radio' class='custom-control-input' required>
+            <input id='ssr' name='ssType' type='radio' class='custom-control-input'>
             <label class='custom-control-label' for='ssr'>
                 <a href="https://github.com/shadowsocksr-backup/shadowsocks-rss/wiki/SSR-QRcode-scheme" target="_blank">
                     ShadowsocksR Scheme
@@ -264,7 +264,7 @@
                 size = DEFAULT_QR_SIZE;
             }
 
-            if (isNullOrEmpty(border) || isNaN(size)) {
+            if (isNullOrEmpty(border) || isNaN(border)) {
                 // not a number
                 border = DEFAULT_QR_BORDER;
             }
